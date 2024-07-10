@@ -14,6 +14,7 @@ import com.srm.androidtendable.model.Category
 import com.srm.androidtendable.model.InspectionResponse
 import com.srm.androidtendable.model.Question
 import com.srm.androidtendable.utils.DataStatus
+import com.srm.androidtendable.utils.DialogUtil
 import com.srm.androidtendable.utils.UIState
 import com.srm.androidtendable.viewmodel.HomeViewModel
 import org.koin.android.ext.android.inject
@@ -72,7 +73,10 @@ class HomeFragment : Fragment() {
 
                 is UIState.Success -> {
                     showLoader(true)
-                    showDialog()
+                    DialogUtil.showDialog(
+                        requireContext(),
+                        "Result submitted successfully !!!"
+                    )
                 }
 
                 is UIState.Error -> {
@@ -108,17 +112,6 @@ class HomeFragment : Fragment() {
         })
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-    }
-
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Tendable")
-        builder.setMessage("Result submitted successfully !!!")
-        builder.setPositiveButton("OK") { dialog, which ->
-            dialog.dismiss()
-        }
-        val dialog = builder.create()
-        dialog.show()
     }
 
     private fun showLoader(isShown: Boolean) {

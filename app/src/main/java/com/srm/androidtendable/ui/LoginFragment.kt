@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.srm.androidtendable.R
 import com.srm.androidtendable.databinding.FragmentLoginBinding
+import com.srm.androidtendable.utils.DialogUtil
 import com.srm.androidtendable.utils.UIState
 import com.srm.androidtendable.viewmodel.LoginViewModel
 import org.koin.android.ext.android.inject
@@ -48,11 +49,10 @@ class LoginFragment : Fragment() {
                 }
                 is UIState.Error -> {
                     showLoader(true)
-                    Toast.makeText(
-                        context,
-                        "There is something wrong!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    DialogUtil.showDialog(
+                        requireContext(),
+                        "Timeout, user not found, please register using Sign up first"
+                    )
                 } else -> {}
             }
         }

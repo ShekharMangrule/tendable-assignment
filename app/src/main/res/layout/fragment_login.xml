@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Sign up here"
+            android:text="Don't have account? Sign up here"
             android:textSize="14sp" />
 
     </LinearLayout>

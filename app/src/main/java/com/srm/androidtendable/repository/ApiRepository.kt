@@ -8,6 +8,7 @@ import com.srm.androidtendable.utils.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.lang.Exception
 
 class ApiRepository(
     private val apiServices: ApiServices,
@@ -24,10 +25,14 @@ class ApiRepository(
 
     suspend fun login() = flow {
         emit(UIState.Loading)
-        val result = apiServices.login(LoginRequest())
-        when (result.code()) {
-            200 -> emit(UIState.Success(result.code()))
-            400,401 -> emit(UIState.Error)
+        try {
+            val result = apiServices.login(LoginRequest())
+            when (result.code()) {
+                200 -> emit(UIState.Success(result.code()))
+                400, 401 -> emit(UIState.Error)
+            }
+        } catch (ex: Exception) {
+            emit(UIState.Error)
         }
     }.flowOn(Dispatchers.IO)
 
